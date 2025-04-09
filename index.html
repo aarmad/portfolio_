@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaron</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo" data-text="AARON">AARON</a>
+        
+        <nav class="nav">
+            <div class="nav-links">
+                <a href="#hero" class="nav-link">
+                    <span class="link-text">Accueil</span>
+                    <div class="link-hover"></div>
+                </a>
+                <a href="#service" class="nav-link">
+                    <span class="link-text">Services</span>
+                    <div class="link-hover"></div>
+                </a>
+                <a href="#gallery" class="nav-link">
+                    <span class="link-text">Skills</span>
+                    <div class="link-hover"></div>
+                </a>
+                <a href="#contact" class="nav-link">
+                    <span class="link-text">Contact</span>
+                    <div class="link-hover"></div>
+                </a>
+            </div>
+            
+            <div class="nav-underline"></div>
+        </nav>
+    </header>
+
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Développeur Web et<br>Application</h1>
+            <p>Création de sites webs pour entreprises et particuliers</p>
+        </div>
+        <div class="scroll-indicator" id="scrollTrigger">▼</div>
+    </section>
+
+    <section class="content-section" id="mainContent">
+        <div class="content-block">
+            <h2>À Propos</h2>
+            <p>Développeur Web fullstack spécialisé dans la création d'applications web modernes et performantes. Avec plus de 1 an d'expérience, je combine expertise technique et sens créatif pour livrer des solutions digitales sur mesure.</p>
+        </div>
+
+        <div class="content-block">
+            <h2>Expertises</h2>
+            <p>✔️ Développement Frontend <br>
+               ✔️ Backend <br>
+               ✔️ Bases de données <br>
+               ✔️ Conception UI/UX</p>
+        </div>
+
+        <div class="content-block">
+            <h2>Méthodologie</h2>
+            <p>Approche agile centrée sur :<br>
+               • La qualité du code<br>
+               • La sécurité des données<br>
+               • L'expérience utilisateur<br>
+               • La performance technique</p>
+        </div>
+    </section>
+
+    <section class="services-section" id="service">
+        <div class="services-grid">
+            <div class="service-block">
+                <div class="service-icon">🖥️</div>
+                <h3>Site Vitrine</h3>
+                <div class="service-content">
+                    <p>Création de sites web modernes et percutants pour :</p>
+                    <ul>
+                        <li>Artisans & indépendants</li>
+                        <li>Professionnels libéraux</li>
+                        <li>Associations</li>
+                        <li>Événements ponctuels</li>
+                    </ul>
+                    <div class="service-price">
+                        À partir de <span>500€</span>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="service-block">
+                <div class="service-icon">🛒</div>
+                <h3>Site E-commerce</h3>
+                <div class="service-content">
+                    <p>Solutions complètes de vente en ligne :</p>
+                    <ul>
+                        <li>Intégration de paiement sécurisé</li>
+                        <li>Gestion de stocks</li>
+                        <li>Marketing digital intégré</li>
+                        <li>Solution clé en main</li>
+                    </ul>
+                    <div class="service-price">
+                        À partir de <span>750€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="animated-arrow"></div>
+    </div>
+
+    <section class="scroll-gallery" id="gallery">
+        <div class="gallery-track">
+            <template id="gallery-template">
+                <div class="gallery-item">
+                    <img src="/img/Capture_d_écran_5-4-2025_143638_www.google.com-removebg-preview.png" alt="Vs_code">
+                </div>
+                <div class="gallery-item">
+                    <img src="/img/Capture_d_écran_5-4-2025_143254_www.google.com-removebg-preview.png" alt="Figma">
+                </div>
+                <div class="gallery-item">
+                    <img src="/img/Capture_d_écran_5-4-2025_143426_www.google.com-removebg-preview.png" alt="Shopify">
+                </div>
+                <div class="gallery-item">
+                    <img src="/img/Capture_d_écran_5-4-2025_143546_www.google.com-removebg-preview.png" alt="Projet 4">
+                </div>
+            </template>
+        </div>
+    </section>
+
+    <section class="testimonial-section" id="client-character">
+        <div class="client-container">
+            <div class="client-character">
+                <div class="client-head"></div>
+                <div class="client-body"></div>
+            </div>
+    
+            <div class="speech-bubble" id="clientSpeech">
+                “Notre nouveau site a boosté notre visibilité !”
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="animated-form">
+            <h2>Contact Rapide</h2>
+            <form id="contactForm">
+                <div class="input-group">
+                    <input type="text" id="name" required>
+                    <label for="name">Nom</label>
+                    <div class="underline"></div>
+                </div>
+                
+                <div class="input-group">
+                    <input type="email" id="email" required>
+                    <label for="email">Email</label>
+                    <div class="underline"></div>
+                </div>
+                
+                <div class="input-group">
+                    <textarea id="message" rows="4" required></textarea>
+                    <label for="message">Message</label>
+                    <div class="underline"></div>
+                </div>
+                
+                <button type="submit">
+                    <span>Envoyer</span>
+                    <div class="wave"></div>
+                </button>
+            </form>
+            <div class="success-message">Message envoyé !</div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+        <div class="animated-faq">
+            <h2>FAQ</h2>
+            <div class="accordion">
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Combien de temps prend la création d'un site web ?</span>
+                    <div class="accordion-icon">+</div>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Le délai moyen varie de 2 à 6 semaines selon la complexité du projet. Nous établissons un calendrier personnalisé dès la validation du devis.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Proposez-vous un service de maintenance ?</span>
+                        <div class="accordion-icon">+</div>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Oui, nous offrons différents forfaits de maintenance incluant mises à jour, sauvegardes et support technique.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer" id="footer">
+        <div class="footer-wave"></div>
+        
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">Aaron Dev</h3>
+                <p class="footer-bio">Développeur passionné créant des expériences digitales mémorables depuis 1 an.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon" aria-label="GitHub">
+                        <svg class="pixel-icon" width="50" height="50">
+                            <image href="/img/github-mark.svg" width="25" height="25" />
+                        </svg>
+                        
+                    </a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn">
+                        <svg class="pixel-icon" width="50" height="50">
+                            <image href="/img/icons8-linkedin.svg" width="25" height="25" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+    
+            <div class="footer-section">
+                <h4 class="footer-subtitle">Navigation</h4>
+                <ul class="footer-links">
+                    <li><a href="#gallery" class="footer-link">Skills</a></li>
+                    <li><a href="#service" class="footer-link">Services</a></li>
+                    <li><a href="#faq" class="footer-link">Blog</a></li>
+                    <li><a href="#contact" class="footer-link">Contact</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-section">
+                <h4 class="footer-subtitle">Services</h4>
+                <ul class="footer-services">
+                    <li>Développement Web</li>
+                    <li>Applications Mobile</li>
+                    <li>SEO Optimisation</li>
+                    <li>Maintenance</li>
+                </ul>
+            </div>
+    
+            <div class="footer-section">
+                <h4 class="footer-subtitle">Contact</h4>
+                <div class="footer-contact">
+                    <p> contact@aaron.dev</p>
+                    <p> +33 0 00 00 00 00</p>
+                    <p> Paris, France</p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p class="copyright">&copy; 2024 Aaron Dev - Tous droits réservés</p>
+            <button class="back-to-top" aria-label="Remonter en haut">
+                ▲
+            </button>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
