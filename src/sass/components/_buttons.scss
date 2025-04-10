@@ -1,0 +1,9 @@
+@use '../abstracts/variables' as *;
+
+.btn {
+    padding: $spacing-unit * 2;
+    border-radius: 50px;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+}
