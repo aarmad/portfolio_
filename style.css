@@ -18,7 +18,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Nouveau style pour la navigation */
+/* Navigation */
 .header {
     padding: 1.5rem 3rem;
     background: rgba(26, 26, 26, 0.95);
@@ -222,9 +222,9 @@ body {
     font-size: 1.1rem;
 }
 
-/* ... styles existants ... */
 
-/* Nouveaux styles pour la flèche */
+
+/* Flèche */
 .section-divider {
     position: relative;
     height: 100px;
@@ -510,7 +510,7 @@ body {
     gap: 4rem;
 }
 
-/* Tête simplifiée */
+/* Tête */
 .client-head {
     width: 100px;
     height: 100px;
@@ -522,7 +522,7 @@ body {
     animation: float 3s ease-in-out infinite;
 }
 
-/* Yeux simplifiés */
+/* Yeux */
 .client-head::before,
 .client-head::after {
     content: '';
