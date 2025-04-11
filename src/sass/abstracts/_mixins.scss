@@ -1,8 +1,0 @@
-@use './variables' as *;
-
-@mixin hover-effect {
-  transition: $transition-base;
-  &:hover {
-    transform: translateY(-3px);
-  }
-}
