@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Projets - Aaron Madjri</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">AARON</span>
+                <span class="logo-dot"></span>
+            </a>
+            
+            <nav class="nav">
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">
+                        <span class="link-text">Accueil</span>
+                        <div class="link-indicator"></div>
+                    </a>
+                    <a href="projets.html" class="nav-link active">
+                        <span class="link-text">Projets</span>
+                        <div class="link-indicator"></div>
+                    </a>
+                    <a href="contact.html" class="nav-link">
+                        <span class="link-text">Contact</span>
+                        <div class="link-indicator"></div>
+                    </a>
+                </div>
+                
+                <div class="nav-actions">
+                    <a href="CV_Aaron_2eme.pdf" class="btn btn-outline" download>Télécharger CV</a>
+                </div>
+            </nav>
+            
+            <button class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Projets -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-content">
+                <h1 class="page-hero-title">Mes Projets</h1>
+                <p class="page-hero-description">
+                    Découvrez une sélection de mes réalisations en développement web et applications.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filtres Projets -->
+    <section class="projects-filters">
+        <div class="container">
+            <div class="filters-container">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
+                <button class="filter-btn" data-filter="application">Applications</button>
+                <button class="filter-btn" data-filter="design">UI/UX</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grille Projets -->
+    <section class="projects-grid-section">
+        <div class="container">
+            <div class="projects-grid">
+                <!-- Projet 1 -->
+                <div class="project-item" data-category="web application">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <div class="project-overlay">
+                                <div class="project-actions">
+                                    <a href="https://github.com/aarmad/AlpineJs-Cr-ation-du-MiniTrello" class="btn btn-sm" target="_blank" rel="noopener">Détails</a>
+                                    <a href="https://github.com/aarmad/AlpineJs-Cr-ation-du-MiniTrello" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Code Source</a>
+                                </div>
+                            </div>
+                            <div class="project-category">Application Web</div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">To Do List App</h3>
+                            <p class="project-description">
+                                Application de gestion de tâches moderne avec fonctionnalités de tri, filtrage et persistance des données.
+                            </p>
+                            <div class="project-tech">
+                                <span>HTML/CSS</span>
+                                <span>JavaScript</span>
+                                <span>LocalStorage</span>
+                                <span>Alpine.JS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 2 -->
+                <div class="project-item" data-category="ecommerce">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <div class="project-overlay">
+                                <div class="project-actions">
+                                    <a href="https://github.com/aaronmadjri/ecommerce-site" class="btn btn-sm" target="_blank" rel="noopener">Détails</a>
+                                    <a href="https://github.com/aaronmadjri/ecommerce-site" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Code Source</a>
+                                </div>
+                            </div>
+                            <div class="project-category">E-commerce</div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Boutique en ligne</h3>
+                            <p class="project-description">
+                                Site e-commerce avec optimisation UI/UX, panier d'achat et intégration de paiement.
+                            </p>
+                            <div class="project-tech">
+                                <span>PHP</span>
+                                <span>MySQL</span>
+                                <span>JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 3 -->
+                <div class="project-item" data-category="web design">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <div class="project-overlay">
+                                <div class="project-actions">
+                                    <a href="https://www.figma.com/files/team/1460919602591737578/recents-and-sharing?fuid=1460919598570687677" class="btn btn-sm" target="_blank" rel="noopener">Détails</a>
+                                    <a href="https://www.figma.com/files/team/1460919602591737578/recents-and-sharing?fuid=1460919598570687677" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Voir Maquettes</a>
+                                </div>
+                            </div>
+                            <div class="project-category">UI/UX Design</div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Maquettes Professionnelles</h3>
+                            <p class="project-description">
+                                Création de maquettes de sites professionnelles avec focus sur l'expérience utilisateur.
+                            </p>
+                            <div class="project-tech">
+                                <span>Figma</span>
+                                <span>Adobe XD</span>
+                                <span>Prototypage</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 4 -->
+                <div class="project-item" data-category="application">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <div class="project-overlay">
+                                <div class="project-actions">
+                                    <a href="https://github.com/aarmad/Projet_Java_H" class="btn btn-sm" target="_blank" rel="noopener">Détails</a>
+                                    <a href="https://github.com/aarmad/Projet_Java_H" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Code Source</a>
+                                </div>
+                            </div>
+                            <div class="project-category">Application Web</div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Gestion de Bases de Données</h3>
+                            <p class="project-description">
+                                Application de gestion et visualisation de données avec interface administrateur.
+                            </p>
+                            <div class="project-tech">
+                                <span>Java</span>
+                                <span>MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 5 -->
+                <div class="project-item" data-category="web application">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <div class="project-overlay">
+                                <div class="project-actions">
+                                    <a href="https://github.com/aaronmadjri/portfolio-website" class="btn btn-sm" target="_blank" rel="noopener">Détails</a>
+                                    <a href="https://github.com/aaronmadjri/portfolio-website" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Code Source</a>
+                                </div>
+                            </div>
+                            <div class="project-category">Site Web</div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Portfolio Personnel</h3>
+                            <p class="project-description">
+                                Conception et développement de mon portfolio personnel avec design moderne et responsive.
+                            </p>
+                            <div class="project-tech">
+                                <span>HTML/CSS</span>
+                                <span>JavaScript</span>
+                                <span>Responsive</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 6 -->
+                <div class="project-item" data-category="web application">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <div class="project-overlay">
+                                <div class="project-actions">
+                                    <a href="https://github.com/aaronmadjri/weather-app" class="btn btn-sm" target="_blank" rel="noopener">Détails</a>
+                                    <a href="https://github.com/aaronmadjri/weather-app" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Code Source</a>
+                                </div>
+                            </div>
+                            <div class="project-category">Application Web</div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Application Météo</h3>
+                            <p class="project-description">
+                                Application de prévisions météo avec API et interface utilisateur intuitive.
+                            </p>
+                            <div class="project-tech">
+                                <span>Vue.js</span>
+                                <span>API REST</span>
+                                <span>JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Projets -->
+    <section class="projects-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Vous avez un projet en tête ?</h2>
+                <p class="cta-description">
+                    Parlons-en ensemble et concrétisons votre idée.
+                </p>
+                <div class="cta-actions">
+                    <a href="contact.html" class="btn btn-primary">Discutons de votre projet</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <span>AARON</span>
+                    </div>
+                    <p class="footer-description">
+                        Développeur passionné créant des expériences digitales mémorables depuis 1 an.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <!-- SVG GitHub -->
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <!-- SVG LinkedIn -->
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Autres sections du footer -->
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2024 Aaron Madjri - Tous droits réservés</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
