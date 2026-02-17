@@ -333,6 +333,7 @@ a {
 .title-accent {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -690,11 +691,14 @@ a {
     align-items: center;
     justify-content: center;
     opacity: 0;
+    z-index: 5;
+    pointer-events: none;
     transition: var(--transition);
 }
 
 .project-card:hover .project-overlay {
     opacity: 1;
+    pointer-events: auto;
     backdrop-filter: blur(4px);
 }
 
