@@ -1,291 +1,356 @@
-// Navigation
+// =============================================
+// PORTFOLIO — Aaron Madjri | script.js
+// =============================================
+
 document.addEventListener('DOMContentLoaded', function () {
-    // Header scroll effect
-    const header = document.querySelector('.header');
 
-    window.addEventListener('scroll', function () {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-
-    // Mobile menu toggle
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const nav = document.querySelector('.nav');
-
-    if (mobileMenuToggle && nav) {
-        mobileMenuToggle.addEventListener('click', function () {
-            nav.classList.toggle('active');
-            mobileMenuToggle.classList.toggle('active');
+    // ─── Navigation sticky shadow ───────────────
+    const navBar = document.querySelector('.nav-bar');
+    if (navBar) {
+        window.addEventListener('scroll', () => {
+            navBar.style.boxShadow = window.scrollY > 80
+                ? '0 8px 30px rgba(0,0,0,0.08)'
+                : 'none';
         });
     }
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
+    // ─── VIVUS SVG Animations ────────────────────
+    // Vivus draws SVG paths on load — each inline SVG gets its stroke-dash animated
+    // We collect all distinct <svg> elements and give them unique IDs if needed
+    animateSVGsWithVivus();
 
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-
-                // Close mobile menu if open
-                if (nav && nav.classList.contains('active')) {
-                    nav.classList.remove('active');
-                    mobileMenuToggle.classList.remove('active');
-                }
-            }
-        });
-    });
-
-    // --- Anime.js Animations ---
-
-    // 1. Hero Animation (only if exists)
-    if (document.querySelector('.hero-title')) {
-        anime.timeline({
-            easing: 'easeOutExpo',
-            duration: 1000
-        })
-            .add({
-                targets: '.hero-badge',
-                opacity: [0, 1],
-                translateY: [20, 0],
-                delay: 300
-            })
-            .add({
-                targets: '.title-line',
-                opacity: [0, 1],
-                translateX: [-50, 0],
-                delay: anime.stagger(150),
-                offset: '-=800'
-            })
-            .add({
-                targets: '.hero-description',
-                opacity: [0, 1],
-                translateY: [20, 0],
-                offset: '-=600'
-            })
-            .add({
-                targets: '.hero-actions .btn',
-                opacity: [0, 1],
-                scale: [0.9, 1],
-                delay: anime.stagger(100),
-                offset: '-=600'
-            })
-            .add({
-                targets: '.floating-card',
-                opacity: [0, 1],
-                translateY: [40, 0],
-                delay: anime.stagger(200),
-                offset: '-=1000'
-            });
-    }
-
-    // 2. Project filtering with Anime.js
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectItems = document.querySelectorAll('.project-item');
-
-    if (filterButtons.length && projectItems.length) {
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-
-                const filterValue = this.getAttribute('data-filter');
-
-                // Animate out
-                anime({
-                    targets: '.project-item',
-                    opacity: 0,
-                    scale: 0.9,
-                    duration: 300,
-                    easing: 'easeInQuad',
-                    complete: function () {
-                        projectItems.forEach(item => {
-                            if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                                item.style.display = 'block';
-                            } else {
-                                item.style.display = 'none';
-                            }
-                        });
-
-                        // Animate in
-                        anime({
-                            targets: '.project-item[style*="display: block"]',
-                            opacity: [0, 1],
-                            scale: [0.95, 1],
-                            translateY: [20, 0],
-                            duration: 600,
-                            delay: anime.stagger(100),
-                            easing: 'easeOutElastic(1, .8)'
-                        });
-                    }
-                });
-            });
-        });
-    }
-
-    // 3. Modern Intersection Observer with Anime.js
-    const revealOptions = {
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px"
-    };
-
-    const revealObserver = new IntersectionObserver((entries, observer) => {
+    // ─── Scroll reveal ──────────────────────────
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
-                entry.target.classList.add('animated');
-
-                const type = entry.target.dataset.animation || 'fade-up';
-
-                let animationProps = {
-                    targets: entry.target,
-                    opacity: [0, 1],
-                    duration: 1000,
-                    easing: 'easeOutExpo'
-                };
-
-                if (type === 'fade-up') animationProps.translateY = [30, 0];
-                if (type === 'fade-left') animationProps.translateX = [-30, 0];
-                if (type === 'fade-right') animationProps.translateX = [30, 0];
-
-                anime(animationProps);
-
-                // Animate SVG inside the card if it's a project/service card
-                const svgPath = entry.target.querySelector('.project-icon svg path, .project-icon svg circle, .project-icon svg rect, .service-icon svg path');
-                if (svgPath) {
-                    anime({
-                        targets: svgPath,
-                        strokeDashoffset: [anime.setDashoffset, 0],
-                        easing: 'easeInOutSine',
-                        duration: 1500,
-                        delay: 400
-                    });
-                }
-
-                observer.unobserve(entry.target);
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                revealObserver.unobserve(entry.target);
             }
         });
-    }, revealOptions);
+    }, { threshold: 0.1 });
 
-    const elementsToReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .project-card, .service-card, .timeline-item');
-    elementsToReveal.forEach(el => {
+    document.querySelectorAll(
+        '.section-card, .project-brutalist, .timeline-entry, .contact-card, .skill-item'
+    ).forEach((el, i) => {
         el.style.opacity = '0';
-
-        if (el.classList.contains('reveal-left')) el.dataset.animation = 'fade-left';
-        else if (el.classList.contains('reveal-right')) el.dataset.animation = 'fade-right';
-        else el.dataset.animation = 'fade-up';
-
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = `opacity 0.6s ease ${i * 0.05}s, transform 0.6s ease ${i * 0.05}s`;
+        el.classList.add('reveal-target');
         revealObserver.observe(el);
     });
 
-    // 4. Interactive Hover Animations for SVGs (Smooth Flow)
-    document.querySelectorAll('.project-card, .service-card').forEach(card => {
-        const icon = card.querySelector('svg');
-        if (!icon) return;
+    // Add is-visible CSS rule dynamically
+    const style = document.createElement('style');
+    style.textContent = '.reveal-target.is-visible { opacity: 1 !important; transform: translateY(0) !important; }';
+    document.head.appendChild(style);
 
-        card.addEventListener('mouseenter', () => {
-            // Smooth pop and tilt
-            anime({
-                targets: icon,
-                scale: 1.12,
-                rotate: '6deg',
-                duration: 500,
-                easing: 'easeOutQuart'
-            });
-
-            // Redraw paths with staggering for fluidity
-            const paths = icon.querySelectorAll('path, circle, rect, polyline');
-            if (paths.length) {
-                anime({
-                    targets: paths,
-                    strokeDashoffset: [anime.setDashoffset, 0],
-                    easing: 'easeInOutSine',
-                    duration: 700,
-                    delay: anime.stagger(40)
-                });
+    // ─── Smooth scroll ──────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function (e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                window.scrollTo({ top: target.offsetTop - 100, behavior: 'smooth' });
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                const navLink = document.querySelector(`.nav-link[href="${this.getAttribute('href')}"]`);
+                if (navLink) navLink.classList.add('active');
             }
         });
-
-        card.addEventListener('mouseleave', () => {
-            anime({
-                targets: icon,
-                scale: 1,
-                rotate: '0deg',
-                duration: 400,
-                easing: 'easeOutSine'
-            });
-        });
     });
 
-    // Persistent ultra-smooth floating for icons
-    anime({
-        targets: '.project-icon svg, .service-icon svg',
-        translateY: [-5, 5],
-        duration: 3500,
-        direction: 'alternate',
-        loop: true,
-        easing: 'easeInOutSine',
-        delay: anime.stagger(400)
-    });
-
-    // FAQ accordion
-    const faqItems = document.querySelectorAll('.faq-item');
-    if (faqItems.length) {
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', function () {
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) otherItem.classList.remove('active');
-                });
-                item.classList.toggle('active');
-            });
-        });
-    }
-
-    // Contact form
-    const contactForm = document.getElementById('contactForm');
-    const formSuccess = document.getElementById('formSuccess');
-    if (contactForm && formSuccess) {
-        contactForm.addEventListener('submit', function (e) {
+    // ─── Contact form ───────────────────────────
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
-            const inputs = contactForm.querySelectorAll('input, textarea');
-            let allFilled = true;
-            inputs.forEach(input => { if (!input.value) allFilled = false; });
 
-            if (allFilled) {
-                contactForm.style.display = 'none';
-                formSuccess.classList.add('visible');
+            const name = this.querySelector('input[type="text"]').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const message = this.querySelector('textarea').value;
+
+            const btn = this.querySelector('button[type="submit"]');
+            const orig = btn.innerText;
+            btn.innerText = 'Redirection WhatsApp…';
+            btn.disabled = true;
+
+            // Construct WhatsApp message
+            const fullMessage = `Bonjour Aaron, je m'appelle ${name} (${email}). Voici mon message : ${message}`;
+            const whatsappUrl = `https://wa.me/33767020615?text=${encodeURIComponent(fullMessage)}`;
+
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+                btn.innerText = 'Message envoyé ✓';
+                btn.classList.add('btn-success');
+                this.reset();
                 setTimeout(() => {
-                    contactForm.reset();
-                    contactForm.style.display = 'block';
-                    formSuccess.classList.remove('visible');
-                }, 5000);
+                    btn.innerText = orig;
+                    btn.disabled = false;
+                    btn.classList.remove('btn-success');
+                }, 3000);
+            }, 800);
+        });
+    }
+
+    // ─── THREE.JS AVATAR ─────────────────────────
+    const canvas = document.getElementById('avatarCanvas');
+    if (canvas && typeof THREE !== 'undefined') {
+        initAvatar3D(canvas);
+    }
+});
+
+// ─────────────────────────────────────────────
+// VIVUS — Animate every inline SVG on page load
+// Uses the Vivus library loaded via CDN
+// ─────────────────────────────────────────────
+function animateSVGsWithVivus() {
+    if (typeof Vivus === 'undefined') return;
+
+    // Select all inline SVGs that have visible strokes
+    const svgs = document.querySelectorAll('svg');
+    let counter = 0;
+
+    svgs.forEach(svg => {
+        // Skip SVGs with no stroke paths or filled SVGs (e.g. decorative)
+        const hasStroke = svg.querySelector('[stroke]:not([stroke="none"])');
+        if (!hasStroke) return;
+
+        // Give the SVG a unique ID if it doesn't have one
+        if (!svg.id) {
+            svg.id = `vivus-svg-${counter++}`;
+        }
+
+        // Make sure all stroke elements have fill:none so the draw effect is visible
+        svg.querySelectorAll('path, circle, line, polyline, ellipse, rect').forEach(el => {
+            if (!el.getAttribute('fill') || el.getAttribute('fill') === 'none') {
+                el.setAttribute('fill', 'none');
             }
         });
+
+        // Random delay for natural staggered effect
+        const delay = Math.random() * 60;
+
+        try {
+            new Vivus(svg.id, {
+                type: 'delayed',
+                duration: 150,
+                start: 'autostart',
+                animTimingFunction: Vivus.EASE_OUT,
+                delay: delay
+            });
+        } catch (_) { }
+    });
+}
+
+// ─────────────────────────────────────────────
+// THREE.JS : Avatar 3D basé sur le favicon
+// Sphère visage + lunettes or + particules
+// ─────────────────────────────────────────────
+function initAvatar3D(canvas) {
+    const container = canvas.parentElement;
+    const W = container.clientWidth || 400;
+    const H = container.clientHeight || 400;
+
+    // ── Renderer ──────────────────────────
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(W, H);
+    renderer.setClearColor(0x0f0f0f, 1);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+    // ── Scene ─────────────────────────────
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0x0f0f0f, 8, 22);
+
+    // ── Camera ────────────────────────────
+    const camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 100);
+    camera.position.set(0, 0.4, 6.5);
+    camera.lookAt(0, 0, 0);
+
+    // ── Lights ────────────────────────────
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+    const keyLight = new THREE.DirectionalLight(0xffeedd, 1.4);
+    keyLight.position.set(3, 5, 5);
+    keyLight.castShadow = true;
+    scene.add(keyLight);
+
+    const fillLight = new THREE.DirectionalLight(0x4488ff, 0.5);
+    fillLight.position.set(-4, 2, 3);
+    scene.add(fillLight);
+
+    const rimLight = new THREE.PointLight(0xFFD700, 2, 14);
+    rimLight.position.set(-2, 3, -3);
+    scene.add(rimLight);
+
+    // ── Root group (all face parts move together) ──
+    const faceGroup = new THREE.Group();
+    scene.add(faceGroup);
+
+    // ── Face sphere ──────────────────────
+    const faceMat = new THREE.MeshStandardMaterial({
+        color: 0x3B1F0E,
+        roughness: 0.65,
+        metalness: 0.0
+    });
+    const faceMesh = new THREE.Mesh(new THREE.SphereGeometry(1.3, 64, 64), faceMat);
+    faceMesh.castShadow = true;
+    faceGroup.add(faceMesh);
+
+    // ── Ears ─────────────────────────────
+    const earGeo = new THREE.SphereGeometry(0.22, 24, 24);
+    [-1, 1].forEach(side => {
+        const ear = new THREE.Mesh(earGeo, faceMat);
+        ear.position.set(side * 1.46, 0, 0);
+        faceGroup.add(ear);
+    });
+
+    // ── Eye helper ───────────────────────
+    const eyeWhiteMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.3 });
+    const irisMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.5 });
+
+    function makeEye(x, isLeft) {
+        const group = new THREE.Group();
+        const eyeMat = new THREE.MeshStandardMaterial({ color: 0x000000, roughness: 0.5 });
+
+        // Horizontal lines forming the '>' or '<'
+        const barLength = 0.28;
+        const barWidth = 0.04;
+        const barGeo = new THREE.CylinderGeometry(barWidth, barWidth, barLength, 8);
+
+        const topBar = new THREE.Mesh(barGeo, eyeMat);
+        const bottomBar = new THREE.Mesh(barGeo, eyeMat);
+
+        const angle = isLeft ? Math.PI / 4 : -Math.PI / 4;
+
+        topBar.rotation.z = angle;
+        topBar.position.y = 0.08;
+
+        bottomBar.rotation.z = -angle;
+        bottomBar.position.y = -0.08;
+
+        group.add(topBar, bottomBar);
+        group.position.set(x, 0.22, 1.32);
+        return group;
     }
-});
+    const leftEye = makeEye(-0.44, true); // >
+    const rightEye = makeEye(0.44, false); // <
+    faceGroup.add(leftEye, rightEye);
 
-// Animation pour la section WhatsApp
-document.addEventListener('DOMContentLoaded', function () {
-    // Animation du bouton WhatsApp au survol
-    const whatsappBtn = document.querySelector('.whatsapp-btn');
+    // ── Glasses frames (golden rings using TorusGeometry) ──
+    const glassMat = new THREE.MeshStandardMaterial({
+        color: 0xFFD700,
+        roughness: 0.08,
+        metalness: 0.95
+    });
 
-    if (whatsappBtn) {
-        whatsappBtn.addEventListener('mouseenter', function () {
-            this.style.transform = 'translateY(-3px)';
-        });
-
-        whatsappBtn.addEventListener('mouseleave', function () {
-            this.style.transform = 'translateY(0)';
-        });
+    function makeGlassRing(x) {
+        const ring = new THREE.Mesh(
+            new THREE.TorusGeometry(0.42, 0.05, 16, 64),
+            glassMat
+        );
+        ring.position.set(x, 0.22, 1.45);
+        return ring;
     }
-});
+
+    const leftLens = makeGlassRing(-0.53);
+    const rightLens = makeGlassRing(0.53);
+    faceGroup.add(leftLens, rightLens);
+
+    // Bridge between glasses (cylinder)
+    const bridgeMesh = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.04, 0.04, 0.22, 12),
+        glassMat
+    );
+    bridgeMesh.rotation.z = Math.PI / 2;
+    bridgeMesh.position.set(0, 0.22, 1.45);
+    faceGroup.add(bridgeMesh);
+
+    // ── Mouth (flat line "___") ───────────
+    const mouthGeo = new THREE.CylinderGeometry(0.03, 0.03, 0.7, 8);
+    const mouthMesh = new THREE.Mesh(mouthGeo,
+        new THREE.MeshStandardMaterial({ color: 0x1a0000 }));
+    mouthMesh.rotation.z = Math.PI / 2;
+    mouthMesh.position.set(0, -0.6, 1.25);
+    faceGroup.add(mouthMesh);
+
+    // ── Particle cloud ────────────────────
+    const partCount = 300;
+    const partPositions = new Float32Array(partCount * 3);
+    for (let i = 0; i < partCount * 3; i++) {
+        partPositions[i] = (Math.random() - 0.5) * 10;
+    }
+    const partGeo = new THREE.BufferGeometry();
+    partGeo.setAttribute('position', new THREE.BufferAttribute(partPositions, 3));
+    const partMat = new THREE.PointsMaterial({
+        color: 0x4488ff,
+        size: 0.035,
+        transparent: true,
+        opacity: 0.55
+    });
+    scene.add(new THREE.Points(partGeo, partMat));
+
+    // ── Ground glow plane ─────────────────
+    const glowGeo = new THREE.CircleGeometry(2.5, 48);
+    const glowMat = new THREE.MeshBasicMaterial({
+        color: 0x0022aa,
+        transparent: true,
+        opacity: 0.15
+    });
+    const glowMesh = new THREE.Mesh(glowGeo, glowMat);
+    glowMesh.rotation.x = -Math.PI / 2;
+    glowMesh.position.y = -1.8;
+    scene.add(glowMesh);
+
+    // ── Mouse tracking ────────────────────
+    let targetRotX = 0;
+    let targetRotY = 0;
+
+    container.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        targetRotY = ((e.clientX - rect.left) / rect.width - 0.5) * 0.7;
+        targetRotX = -((e.clientY - rect.top) / rect.height - 0.5) * 0.4;
+    });
+
+    container.addEventListener('mouseleave', () => {
+        targetRotX = 0;
+        targetRotY = 0;
+    });
+
+    // ── Animate ───────────────────────────
+    let time = 0;
+    function animate() {
+        requestAnimationFrame(animate);
+        time += 0.01;
+
+        // Smooth mouse follow
+        faceGroup.rotation.y += (targetRotY - faceGroup.rotation.y) * 0.07;
+        faceGroup.rotation.x += (targetRotX - faceGroup.rotation.x) * 0.07;
+
+        // Gentle breathing bob
+        faceGroup.position.y = Math.sin(time * 0.9) * 0.07;
+
+        // Rim light orbit
+        rimLight.position.x = Math.cos(time * 0.35) * 3.5;
+        rimLight.position.z = Math.sin(time * 0.35) * 3.5 - 1;
+
+        // Glasses glint
+        const glintIntensity = (Math.sin(time * 2) * 0.5 + 0.5) * 0.5 + 0.5;
+        glassMat.emissive = new THREE.Color(0xFFD700);
+        glassMat.emissiveIntensity = glintIntensity * 0.15;
+
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // ── Resize handler ────────────────────
+    const ro = new ResizeObserver(() => {
+        const nW = container.clientWidth;
+        const nH = container.clientHeight;
+        if (nW === 0 || nH === 0) return;
+        camera.aspect = nW / nH;
+        camera.updateProjectionMatrix();
+        renderer.setSize(nW, nH);
+    });
+    ro.observe(container);
+}
