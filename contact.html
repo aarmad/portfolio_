@@ -138,6 +138,16 @@
                             style="width:100%;padding:13px 16px;border-radius:var(--border-radius-sm);border:1px solid var(--border-color);background:white;font-family:inherit;font-size:14px;outline:none;">
                         <input type="email" placeholder="Votre Email"
                             style="width:100%;padding:13px 16px;border-radius:var(--border-radius-sm);border:1px solid var(--border-color);background:white;font-family:inherit;font-size:14px;outline:none;">
+
+                        <div style="display:flex;flex-direction:column;">
+                            <label class="contact-form-label">Canal de communication préféré :</label>
+                            <select name="mode" class="contact-form-select">
+                                <option value="whatsapp">WhatsApp (Direct)</option>
+                                <option value="email">E-mail</option>
+                                <option value="linkedin">LinkedIn (Presse-papier + Redirection)</option>
+                            </select>
+                        </div>
+
                         <textarea placeholder="Votre Message" rows="6"
                             style="width:100%;padding:13px 16px;border-radius:var(--border-radius-sm);border:1px solid var(--border-color);background:white;font-family:inherit;font-size:14px;resize:none;outline:none;"></textarea>
                         <button type="submit" class="btn btn-primary" style="padding:14px;font-size:14px;">Envoyer le

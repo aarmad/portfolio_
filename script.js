@@ -65,21 +65,33 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
 
             const name = this.querySelector('input[type="text"]').value;
-            const email = this.querySelector('input[type="email"]').value;
+            const emailInput = this.querySelector('input[type="email"]');
+            const email = emailInput ? emailInput.value : '';
             const message = this.querySelector('textarea').value;
+            const mode = this.querySelector('select[name="mode"]')?.value || 'whatsapp';
 
             const btn = this.querySelector('button[type="submit"]');
             const orig = btn.innerText;
-            btn.innerText = 'Redirection WhatsApp…';
+            btn.innerText = 'Redirection...';
             btn.disabled = true;
 
-            // Construct WhatsApp message
-            const fullMessage = `Bonjour Aaron, je m'appelle ${name} (${email}). Voici mon message : ${message}`;
-            const whatsappUrl = `https://wa.me/33767020615?text=${encodeURIComponent(fullMessage)}`;
+            const fullMessage = `Contact: ${name} (${email})\n\nMessage: ${message}`;
 
             setTimeout(() => {
-                window.open(whatsappUrl, '_blank');
-                btn.innerText = 'Message envoyé ✓';
+                if (mode === 'whatsapp') {
+                    const waUrl = `https://wa.me/33767020615?text=${encodeURIComponent('Bonjour Aaron, ' + fullMessage)}`;
+                    window.open(waUrl, '_blank');
+                } else if (mode === 'email') {
+                    const mailUrl = `mailto:aaron.madjri@efrei.net?subject=Contact Portfolio - ${name}&body=${encodeURIComponent(fullMessage)}`;
+                    window.location.href = mailUrl;
+                } else if (mode === 'linkedin') {
+                    const liUrl = `https://www.linkedin.com/in/aaron-madjri/`;
+                    window.open(liUrl, '_blank');
+                    alert("Copié dans le presse-papier ! Vous pouvez coller votre message sur LinkedIn.");
+                    navigator.clipboard.writeText(fullMessage);
+                }
+
+                btn.innerText = 'Redirection effectuée ✓';
                 btn.classList.add('btn-success');
                 this.reset();
                 setTimeout(() => {
@@ -87,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     btn.disabled = false;
                     btn.classList.remove('btn-success');
                 }, 3000);
-            }, 800);
+            }, 600);
         });
     }
 
@@ -175,7 +187,7 @@ function initAvatar3D(canvas) {
     keyLight.castShadow = true;
     scene.add(keyLight);
 
-    const fillLight = new THREE.DirectionalLight(0x4488ff, 0.5);
+    const fillLight = new THREE.DirectionalLight(0x00CED1, 0.7);
     fillLight.position.set(-4, 2, 3);
     scene.add(fillLight);
 
@@ -283,7 +295,7 @@ function initAvatar3D(canvas) {
     const partGeo = new THREE.BufferGeometry();
     partGeo.setAttribute('position', new THREE.BufferAttribute(partPositions, 3));
     const partMat = new THREE.PointsMaterial({
-        color: 0x4488ff,
+        color: 0x00CED1,
         size: 0.035,
         transparent: true,
         opacity: 0.55
@@ -293,9 +305,9 @@ function initAvatar3D(canvas) {
     // ── Ground glow plane ─────────────────
     const glowGeo = new THREE.CircleGeometry(2.5, 48);
     const glowMat = new THREE.MeshBasicMaterial({
-        color: 0x0022aa,
+        color: 0x00CED1,
         transparent: true,
-        opacity: 0.15
+        opacity: 0.12
     });
     const glowMesh = new THREE.Mesh(glowGeo, glowMat);
     glowMesh.rotation.x = -Math.PI / 2;
@@ -306,16 +318,12 @@ function initAvatar3D(canvas) {
     let targetRotX = 0;
     let targetRotY = 0;
 
-    container.addEventListener('mousemove', e => {
-        const rect = canvas.getBoundingClientRect();
-        targetRotY = ((e.clientX - rect.left) / rect.width - 0.5) * 0.7;
-        targetRotX = -((e.clientY - rect.top) / rect.height - 0.5) * 0.4;
+    window.addEventListener('mousemove', e => {
+        // Track relative to whole window
+        targetRotY = (e.clientX / window.innerWidth - 0.5) * 1.0;
+        targetRotX = (e.clientY / window.innerHeight - 0.5) * 0.6;
     });
-
-    container.addEventListener('mouseleave', () => {
-        targetRotX = 0;
-        targetRotY = 0;
-    });
+    // Removed mouseleave so it stays looking at last pos or we could reset on blur
 
     // ── Animate ───────────────────────────
     let time = 0;
