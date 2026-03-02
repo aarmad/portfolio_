@@ -286,21 +286,7 @@ function initAvatar3D(canvas) {
     mouthMesh.position.set(0, -0.6, 1.25);
     faceGroup.add(mouthMesh);
 
-    // ── Particle cloud ────────────────────
-    const partCount = 300;
-    const partPositions = new Float32Array(partCount * 3);
-    for (let i = 0; i < partCount * 3; i++) {
-        partPositions[i] = (Math.random() - 0.5) * 10;
-    }
-    const partGeo = new THREE.BufferGeometry();
-    partGeo.setAttribute('position', new THREE.BufferAttribute(partPositions, 3));
-    const partMat = new THREE.PointsMaterial({
-        color: 0x00CED1,
-        size: 0.035,
-        transparent: true,
-        opacity: 0.55
-    });
-    scene.add(new THREE.Points(partGeo, partMat));
+    // ── Particle cloud removed ───────────
 
     // ── Ground glow plane ─────────────────
     const glowGeo = new THREE.CircleGeometry(2.5, 48);
