@@ -732,8 +732,8 @@ svg rect {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     gap: 20px;
-    margin-bottom: 20px;
-    min-height: 280px;
+    margin-bottom: 30px;
+    min-height: 60vh;
 }
 
 .hero-left {
@@ -748,7 +748,7 @@ svg rect {
     position: relative;
     overflow: hidden;
     color: white;
-    min-height: 320px;
+    height: 100%;
 }
 
 .hero-accent-box .circular-content {
@@ -777,7 +777,7 @@ svg rect {
 }
 
 .big-arrow {
-    font-size: 110px;
+    font-size: clamp(80px, 15vh, 180px);
     line-height: 1;
     margin-bottom: 15px;
     font-weight: 300;
